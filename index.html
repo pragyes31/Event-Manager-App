@@ -6,7 +6,49 @@
   </head>
 
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <header>Event manager app</header>
+      <div class="add-event-form">
+        <form id="add-event">
+          <div class="form-field">
+            <label for="event-name">Name of the event: </label>
+            <input
+              class="form-input"
+              type="text"
+              id="event-name"
+              placeholder="Enter your first name"
+            />
+          </div>
+          <div class="form-field">
+            <label for="description">Description: </label>
+            <textarea class="full-width" rows="3" id="description"></textarea>
+          </div>
+          <div class="form-field">
+            <label for="start-date">Start date: </label>
+            <input
+              class="form-input"
+              type="date"
+              id="start-date"
+              placeholder="Enter your first name"
+            />
+          </div>
+          <div class="form-field">
+            <label for="end-date">End date: </label>
+            <input
+              class="form-input"
+              type="date"
+              id="end-date"
+              placeholder="Enter your first name"
+            />
+          </div>
+          <div class="form-field">
+            <button type="submit" class="form-btn" id="submit">
+              Add Event
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
 
     <script src="src/index.js"></script>
   </body>
