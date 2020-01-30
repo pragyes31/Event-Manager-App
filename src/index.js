@@ -9,7 +9,7 @@ const createEventManagerApp = function() {
   const startDateInput = document.querySelector("#start-date-input");
   const endDateInput = document.querySelector("#end-date-input");
   const addEventBtn = document.querySelector("#add-event-button");
-  const eventsListObject = [];
+  const eventsListArray = [];
   const generateEventItem = () => {
     let eventItemDiv = document.createElement("div");
     let eventTitleDiv = document.createElement("div");
@@ -29,9 +29,7 @@ const createEventManagerApp = function() {
     eventItemDiv.appendChild(eventStartDateDiv);
     eventItemDiv.appendChild(eventEndDateDiv);
   };
-  const populateEventItem = (title, description, startDate, endDate) => {
-    console.log("boom");
-  };
+  const populateEventItem = (title, description, startDate, endDate) => {};
 
   const resetEventForm = () => {
     titleInput.value = "";
@@ -52,20 +50,24 @@ const createEventManagerApp = function() {
     eventItemObject.description = description;
     eventItemObject.startDate = startDate;
     eventItemObject.endDate = endDate;
-    eventsListObject.push(eventItemObject);
+    eventsListArray.push(eventItemObject);
+    console.log(eventItemObject, eventsListArray);
     populateEventItem(title, description, startDate, endDate);
     resetEventForm();
+  };
+  const addEventToPage = () => {
+    addEventItemObject(
+      titleInput.value,
+      descriptionInput.value,
+      startDateInput.value,
+      endDateInput.value
+    );
   };
   eventDetailsForm.addEventListener(
     "submit",
     event => {
       event.preventDefault();
-      addEventItemObject(
-        titleInput.value,
-        descriptionInput.value,
-        startDateInput.value,
-        endDateInput.value
-      );
+      addEventToPage();
     },
     false
   );
