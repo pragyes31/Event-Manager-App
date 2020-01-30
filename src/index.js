@@ -33,6 +33,13 @@ const createEventManagerApp = function() {
     console.log("boom");
   };
 
+  const resetEventForm = () => {
+    titleInput.value = "";
+    descriptionInput.value = "";
+    startDateInput.value = "";
+    endDateInput.value = "";
+  };
+
   const addEventItemObject = (
     title,
     description,
@@ -40,14 +47,14 @@ const createEventManagerApp = function() {
     endDate,
     event
   ) => {
-    event.preventDefault();
     let eventItemObject = {};
     eventItemObject.title = title;
     eventItemObject.description = description;
     eventItemObject.startDate = startDate;
     eventItemObject.endDate = endDate;
-    console.log(eventItemObject);
+    eventsListObject.push(eventItemObject);
     populateEventItem(title, description, startDate, endDate);
+    resetEventForm();
   };
   eventDetailsForm.addEventListener(
     "submit",
