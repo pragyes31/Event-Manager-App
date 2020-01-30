@@ -9,6 +9,7 @@ const createEventManagerApp = function() {
   const startDateInput = document.querySelector("#start-date-input");
   const endDateInput = document.querySelector("#end-date-input");
   const addEventBtn = document.querySelector("#add-event-button");
+  const errorMessage = document.querySelector("#error-message");
   const eventsListArray = [];
   const generateEventItem = () => {
     let eventItemDiv = document.createElement("div");
@@ -55,13 +56,21 @@ const createEventManagerApp = function() {
     populateEventItem(title, description, startDate, endDate);
     resetEventForm();
   };
+  const dateErrorMsg = () => {
+    errorMessage.innerHTML =
+      "EVENT NOT ADDED! The end date should be greater than the start date";
+  };
   const addEventToPage = () => {
-    addEventItemObject(
-      titleInput.value,
-      descriptionInput.value,
-      startDateInput.value,
-      endDateInput.value
-    );
+    let startDateObj = new Date(startDateInput.value);
+    let endDateObj = new Date(endDateInput.value);
+    endDateObj - startDateObj > 0
+      ? addEventItemObject(
+          titleInput.value,
+          descriptionInput.value,
+          startDateInput.value,
+          endDateInput.value
+        )
+      : dateErrorMsg();
   };
   eventDetailsForm.addEventListener(
     "submit",
