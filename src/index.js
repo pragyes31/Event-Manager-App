@@ -3,6 +3,7 @@ import "./styles.css";
 const createEventManagerApp = function() {
   const eventsList = document.querySelector("#events-list");
   const eventNameInput = document.querySelector("#event-name");
+  const eventDetailsForm = document.querySelector("#add-event");
   const titleInput = document.querySelector("#title-input");
   const descriptionInput = document.querySelector("#description-input");
   const startDateInput = document.querySelector("#start-date-input");
@@ -28,12 +29,39 @@ const createEventManagerApp = function() {
     eventItemDiv.appendChild(eventStartDateDiv);
     eventItemDiv.appendChild(eventEndDateDiv);
   };
-  const populateEventItem = () => {};
-  const addEventItemObject = e => {
-    e.preventDefault();
+  const populateEventItem = (title, description, startDate, endDate) => {
     console.log("boom");
   };
-  addEventBtn.addEventListener("click", addEventItemObject);
+
+  const addEventItemObject = (
+    title,
+    description,
+    startDate,
+    endDate,
+    event
+  ) => {
+    event.preventDefault();
+    let eventItemObject = {};
+    eventItemObject.title = title;
+    eventItemObject.description = description;
+    eventItemObject.startDate = startDate;
+    eventItemObject.endDate = endDate;
+    console.log(eventItemObject);
+    populateEventItem(title, description, startDate, endDate);
+  };
+  eventDetailsForm.addEventListener(
+    "submit",
+    event => {
+      event.preventDefault();
+      addEventItemObject(
+        titleInput.value,
+        descriptionInput.value,
+        startDateInput.value,
+        endDateInput.value
+      );
+    },
+    false
+  );
 };
 
 const eventManagerApp = new createEventManagerApp();
