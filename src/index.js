@@ -8,7 +8,7 @@ const createEventManagerApp = function() {
   const startDateInput = document.querySelector("#start-date-input");
   const endDateInput = document.querySelector("#end-date-input");
   const errorMessage = document.querySelector("#error-message");
-  const eventsListArray = [];
+  let eventsListArray = [];
   const generateEventItem = (title, description, startDate, endDate) => {
     let eventItemDiv = document.createElement("div");
     let eventTitleDiv = document.createElement("div");
@@ -34,8 +34,13 @@ const createEventManagerApp = function() {
     eventEndDateDiv.innerHTML = `End date: ${endDate}`;
   };
   const populateEventItem = (title, description, startDate, endDate) => {
-    eventsListArray.forEach(event => {
-      generateEventItem(title, description, startDate, endDate);
+    eventsListArray.sort(
+      (a, b) => new Date(a.startDate) - new Date(b.startDate)
+    );
+    eventsList.innerHTML = "";
+    eventsListArray.forEach(eve => {
+      console.log(eve);
+      generateEventItem(eve.title, eve.description, eve.startDate, eve.endDate);
     });
   };
 
@@ -59,8 +64,9 @@ const createEventManagerApp = function() {
     eventItemObject.description = description;
     eventItemObject.startDate = startDate;
     eventItemObject.endDate = endDate;
-    eventsListArray.push(eventItemObject);
-    console.log(eventItemObject, eventsListArray);
+    eventsListArray = [...eventsListArray, eventItemObject];
+    //eventsListArray.push(eventItemObject);
+    // console.log(eventsListArray);
     populateEventItem(title, description, startDate, endDate);
     resetEventForm();
   };
