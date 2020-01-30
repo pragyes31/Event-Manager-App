@@ -2,16 +2,14 @@ import "./styles.css";
 
 const createEventManagerApp = function() {
   const eventsList = document.querySelector("#events-list");
-  const eventNameInput = document.querySelector("#event-name");
   const eventDetailsForm = document.querySelector("#add-event");
   const titleInput = document.querySelector("#title-input");
   const descriptionInput = document.querySelector("#description-input");
   const startDateInput = document.querySelector("#start-date-input");
   const endDateInput = document.querySelector("#end-date-input");
-  const addEventBtn = document.querySelector("#add-event-button");
   const errorMessage = document.querySelector("#error-message");
   const eventsListArray = [];
-  const generateEventItem = () => {
+  const generateEventItem = (title, description, startDate, endDate) => {
     let eventItemDiv = document.createElement("div");
     let eventTitleDiv = document.createElement("div");
     let eventDescriptionDiv = document.createElement("div");
@@ -29,8 +27,17 @@ const createEventManagerApp = function() {
     eventItemDiv.appendChild(eventDescriptionDiv);
     eventItemDiv.appendChild(eventStartDateDiv);
     eventItemDiv.appendChild(eventEndDateDiv);
+
+    eventTitleDiv.innerHTML = title;
+    eventDescriptionDiv.innerHTML = description;
+    eventStartDateDiv.innerHTML = `Start date: ${startDate}`;
+    eventEndDateDiv.innerHTML = `End date: ${endDate}`;
   };
-  const populateEventItem = (title, description, startDate, endDate) => {};
+  const populateEventItem = (title, description, startDate, endDate) => {
+    eventsListArray.forEach(event => {
+      generateEventItem(title, description, startDate, endDate);
+    });
+  };
 
   const resetEventForm = () => {
     titleInput.value = "";
@@ -46,6 +53,7 @@ const createEventManagerApp = function() {
     endDate,
     event
   ) => {
+    errorMessage.innerHTML = "Event added successfully";
     let eventItemObject = {};
     eventItemObject.title = title;
     eventItemObject.description = description;
