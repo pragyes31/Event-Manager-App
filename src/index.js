@@ -3,26 +3,27 @@ import "./styles.css";
 const createEventManagerApp = function() {
   const eventApp = document.querySelector("#event-manager-app");
   const eventsList = document.querySelector("#events-list");
-  const eventsListObject = {};
+  const eventNameInput = document.querySelector("#event-name");
+
+  const eventsListObject = [];
   const generateEventItem = () => {
-    let event = document.createElement("div");
-    let eventsTitle = document.createElement("div");
-    let eventsDescription = document.createElement("div");
-    let eventsStartDate = document.createElement("div");
-    let eventsEndDate = document.createElement("div");
+    let eventItemDiv = document.createElement("div");
+    let eventTitleDiv = document.createElement("div");
+    let eventDescriptionDiv = document.createElement("div");
+    let eventStartDateDiv = document.createElement("div");
+    let eventEndDateDiv = document.createElement("div");
 
-    eventsList.id = "events-list";
-    event.className = "event";
-    eventsTitle.className = "event-title";
-    eventsDescription.className = "event-description";
-    eventsStartDate.className = "event-start-date";
-    eventsEndDate.className = "event-end-date";
+    eventItemDiv.className = "event";
+    eventTitleDiv.className = "event-title";
+    eventDescriptionDiv.className = "event-description";
+    eventStartDateDiv.className = "event-start-date";
+    eventEndDateDiv.className = "event-end-date";
 
-    eventApp.appendChild(eventsList);
-    event.appendChild(eventsTitle);
-    event.appendChild(eventsDescription);
-    event.appendChild(eventsStartDate);
-    event.appendChild(eventsEndDate);
+    eventsList.appendChild(eventItemDiv);
+    eventItemDiv.appendChild(eventTitleDiv);
+    eventItemDiv.appendChild(eventDescriptionDiv);
+    eventItemDiv.appendChild(eventStartDateDiv);
+    eventItemDiv.appendChild(eventEndDateDiv);
   };
   const populateEventItem = () => {};
 };
