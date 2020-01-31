@@ -56,7 +56,13 @@ const createEventManagerApp = function() {
     }
     return dateRange;
   };
+  const handleDateConflict = () => {};
   const populateEventItem = (title, description, startDate, endDate) => {
+    let eventObjCount = 0;
+    eventsListArray.forEach(eve => {
+      eventObjCount++;
+      eve.eventId = `event${eventObjCount}`;
+    });
     eventsListArray.sort(
       (a, b) => new Date(a.startDate) - new Date(b.startDate)
     );
@@ -64,8 +70,10 @@ const createEventManagerApp = function() {
     eventIdCount = 0;
     eventsListArray.forEach(eve => {
       eventIdCount++;
+      //eve.eventId = `event${eventIdCount}`;
       generateEventItem(eve.title, eve.description, eve.startDate, eve.endDate);
     });
+    console.log(eventsListArray);
   };
 
   const resetEventForm = () => {
@@ -76,17 +84,14 @@ const createEventManagerApp = function() {
   };
 
   const addEventItemObject = (title, description, startDate, endDate) => {
-    errorMessage.innerHTML = "Event added successfully";
     let eventItemObject = {};
     eventItemObject.title = title;
     eventItemObject.description = description;
     eventItemObject.startDate = startDate;
     eventItemObject.endDate = endDate;
     eventItemObject.dateRange = dateRangeToArray(startDate, endDate);
-    eventItemObject.eventId = eventIdCount;
     dateRangeToArray(startDate, endDate);
     eventsListArray = [...eventsListArray, eventItemObject];
-    //eventsListArray.push(eventItemObject);
     populateEventItem(title, description, startDate, endDate);
     resetEventForm();
   };
