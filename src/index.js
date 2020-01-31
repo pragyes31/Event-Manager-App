@@ -8,6 +8,7 @@ const createEventManagerApp = function() {
   const startDateInput = document.querySelector("#start-date-input");
   const endDateInput = document.querySelector("#end-date-input");
   const errorMessage = document.querySelector("#error-message");
+  let eventIdCount = 0;
   let eventsListArray = [];
   const generateEventItem = (title, description, startDate, endDate) => {
     let eventItemDiv = document.createElement("div");
@@ -17,6 +18,7 @@ const createEventManagerApp = function() {
     let eventEndDateDiv = document.createElement("div");
 
     eventItemDiv.className = "event";
+    eventItemDiv.id = `event${eventIdCount}`;
     eventTitleDiv.className = "event-title";
     eventDescriptionDiv.className = "event-description";
     eventStartDateDiv.className = "event-start-date";
@@ -37,35 +39,31 @@ const createEventManagerApp = function() {
     let start = new Date(startDate);
     let end = new Date(endDate);
     let dateRange = [];
-
     while (start <= end) {
       let currentDate = new Date(start);
       let currentYear = currentDate.getFullYear();
       let currentMonth =
-        currentDate.getMonth().length > 1
+        currentDate.getMonth() > 9
           ? currentDate.getMonth() + 1
           : `0${currentDate.getMonth() + 1}`;
       let currentDay =
         currentDate.getDate() > 9
           ? currentDate.getDate()
           : `0${currentDate.getDate()}`;
-
       let dateInFormat = `${currentYear}-${currentMonth}-${currentDay}`;
       dateRange.push(dateInFormat);
       start.setDate(start.getDate() + 1);
-      //console.log(dateRange)
     }
-    console.log(dateRange);
     return dateRange;
-    // console.log(start, end);
   };
   const populateEventItem = (title, description, startDate, endDate) => {
     eventsListArray.sort(
       (a, b) => new Date(a.startDate) - new Date(b.startDate)
     );
     eventsList.innerHTML = "";
+    eventIdCount = 0;
     eventsListArray.forEach(eve => {
-      console.log(eve);
+      eventIdCount++;
       generateEventItem(eve.title, eve.description, eve.startDate, eve.endDate);
     });
   };
@@ -77,23 +75,18 @@ const createEventManagerApp = function() {
     endDateInput.value = "";
   };
 
-  const addEventItemObject = (
-    title,
-    description,
-    startDate,
-    endDate,
-    event
-  ) => {
+  const addEventItemObject = (title, description, startDate, endDate) => {
     errorMessage.innerHTML = "Event added successfully";
     let eventItemObject = {};
     eventItemObject.title = title;
     eventItemObject.description = description;
     eventItemObject.startDate = startDate;
     eventItemObject.endDate = endDate;
+    eventItemObject.dateRange = dateRangeToArray(startDate, endDate);
+    eventItemObject.eventId = eventIdCount;
     dateRangeToArray(startDate, endDate);
     eventsListArray = [...eventsListArray, eventItemObject];
     //eventsListArray.push(eventItemObject);
-    // console.log(eventsListArray);
     populateEventItem(title, description, startDate, endDate);
     resetEventForm();
   };
