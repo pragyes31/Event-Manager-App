@@ -10,6 +10,14 @@ const createEventManagerApp = function() {
   const errorMessage = document.querySelector("#error-message");
   let eventIdCount = 0;
   let eventsListArray = [];
+  const loadLocalData = () => {
+    if (localStorage.getItem("events-list")) {
+      localStorage.setItem("events-list", JSON.stringify(eventsListArray));
+      let localData = JSON.parse(localStorage.getItem("events-list"));
+      eventsListArray = [...localData];
+      populateEventItem();
+    }
+  };
   const generateEventItem = (title, description, startDate, endDate) => {
     let eventItemDiv = document.createElement("div");
     let eventTitleDiv = document.createElement("div");
@@ -74,7 +82,7 @@ const createEventManagerApp = function() {
       });
     });
   };
-  const populateEventItem = (title, description, startDate, endDate) => {
+  const populateEventItem = () => {
     eventsListArray.sort(
       (a, b) => new Date(a.startDate) - new Date(b.startDate)
     );
@@ -86,6 +94,8 @@ const createEventManagerApp = function() {
       generateEventItem(eve.title, eve.description, eve.startDate, eve.endDate);
     });
     handleDateConflict();
+    localStorage.setItem("events-list", JSON.stringify(eventsListArray));
+    console.log(localStorage.getItem("events-list"));
     //console.log(eventsListArray);
   };
 
@@ -105,7 +115,7 @@ const createEventManagerApp = function() {
     eventItemObject.dateRange = dateRangeToArray(startDate, endDate);
     dateRangeToArray(startDate, endDate);
     eventsListArray = [...eventsListArray, eventItemObject];
-    populateEventItem(title, description, startDate, endDate);
+    populateEventItem();
     resetEventForm();
   };
   const dateErrorMsg = () => {
@@ -132,6 +142,7 @@ const createEventManagerApp = function() {
     },
     false
   );
+  loadLocalData();
 };
 
 const eventManagerApp = new createEventManagerApp();

@@ -68,11 +68,17 @@ label {
   cursor: pointer;
   margin-top: 10px;
   box-shadow: 0 3px #40514e;
+  font-weight: bold;
 }
 
 #add-event-button:active {
   box-shadow: 0 1px #999;
   transform: translateY(2px);
+}
+
+#add-event-button:hover {
+  background-color: #3095a7;
+  color: #fff;
 }
 
 #events-list {
@@ -89,7 +95,9 @@ label {
   margin: 10px 5px;
 }
 
-@media all and (max-width: 7200px) {
+.event-title {
+  font-weight: bold;
+  margin-bottom: 5px;
 }
 
 @media all and (max-width: 600px) {
