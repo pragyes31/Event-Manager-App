@@ -8,55 +8,55 @@
   <body>
     <div id="event-manager-app">
       <header>Event manager app</header>
-      <div class="add-event-form">
-        <form id="add-event">
-          <div class="form-field">
-            <label for="title-input">Name of the event: </label>
-            <input
-              class="form-input"
-              type="text"
-              id="title-input"
-              placeholder="Enter your first name"
-              required
-            />
-          </div>
-          <div class="form-field">
-            <label for="description-input">Description: </label>
-            <textarea
-              class="full-width"
-              rows="3"
-              id="description-input"
-            ></textarea>
-          </div>
-          <div class="form-field">
-            <label for="start-date-input">Start date: </label>
-            <input
-              class="form-input"
-              type="date"
-              id="start-date-input"
-              placeholder="Enter your first name"
-              required
-            />
-          </div>
-          <div class="form-field">
-            <label for="end-date-input">End date: </label>
-            <input
-              class="form-input"
-              type="date"
-              id="end-date-input"
-              placeholder="Enter your first name"
-              required
-            />
-          </div>
-          <div class="form-field">
-            <button type="submit" class="form-btn" id="add-event-button">
-              Add Event
-            </button>
-          </div>
-        </form>
+      <div class="app-content">
+        <div class="add-event-form">
+          <form id="add-event">
+            <div class="form-field">
+              <label for="title-input">Name of the event:* </label><br />
+              <input
+                class="form-input"
+                type="text"
+                id="title-input"
+                placeholder="Add event title"
+                required
+              />
+            </div>
+            <div class="form-field">
+              <label for="description-input">Description: </label><br />
+              <textarea
+                class="full-width"
+                rows="5"
+                id="description-input"
+              ></textarea>
+            </div>
+            <div class="form-field">
+              <label for="start-date-input">Start date:* </label><br />
+              <input
+                class="form-input"
+                type="date"
+                id="start-date-input"
+                required
+              />
+            </div>
+            <div class="form-field">
+              <label for="end-date-input">End date:* </label><br />
+              <input
+                class="form-input"
+                type="date"
+                id="end-date-input"
+                required
+              />
+            </div>
+            <div class="form-field">
+              <button type="submit" class="form-btn" id="add-event-button">
+                Add Event
+              </button>
+            </div>
+            <div id="error-message"></div>
+          </form>
+        </div>
+        <div id="events-list"></div>
       </div>
-      <div id="error-message"></div>
-      <div id="events-list"></div>
     </div>
 
     <script src="src/index.js"></script>
