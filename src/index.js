@@ -56,13 +56,25 @@ const createEventManagerApp = function() {
     }
     return dateRange;
   };
-  const handleDateConflict = () => {};
-  const populateEventItem = (title, description, startDate, endDate) => {
-    let eventObjCount = 0;
-    eventsListArray.forEach(eve => {
-      eventObjCount++;
-      eve.eventId = `event${eventObjCount}`;
+  const handleDateConflict = () => {
+    eventsListArray.forEach(eve1 => {
+      eventsListArray.forEach(eve2 => {
+        if (
+          eve1.eventId !== eve2.eventId &&
+          (eve2.dateRange.includes(eve1.startDate) ||
+            eve2.dateRange.includes(eve1.endDate))
+        ) {
+          let eve1Id = eve1.eventId;
+          let eve2Id = eve2.eventId;
+          let eve1Div = document.querySelector(`#${eve1Id}`);
+          let eve2Div = document.querySelector(`#${eve2Id}`);
+          eve1Div.style.border = "1px solid red";
+          eve2Div.style.border = "1px solid red";
+        }
+      });
     });
+  };
+  const populateEventItem = (title, description, startDate, endDate) => {
     eventsListArray.sort(
       (a, b) => new Date(a.startDate) - new Date(b.startDate)
     );
@@ -70,10 +82,11 @@ const createEventManagerApp = function() {
     eventIdCount = 0;
     eventsListArray.forEach(eve => {
       eventIdCount++;
-      //eve.eventId = `event${eventIdCount}`;
+      eve.eventId = `event${eventIdCount}`;
       generateEventItem(eve.title, eve.description, eve.startDate, eve.endDate);
     });
-    console.log(eventsListArray);
+    handleDateConflict();
+    //console.log(eventsListArray);
   };
 
   const resetEventForm = () => {
