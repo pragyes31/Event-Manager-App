@@ -33,6 +33,19 @@ const createEventManagerApp = function() {
     eventStartDateDiv.innerHTML = `Start date: ${startDate}`;
     eventEndDateDiv.innerHTML = `End date: ${endDate}`;
   };
+  const dateRangeToArray = (startDate, endDate) => {
+    let start = new Date(startDate);
+    let end = new Date(endDate);
+    let dateRange = [];
+    while (start <= end) {
+      dateRange.push(new Date(start));
+      start.setDate(start.getDate() + 1);
+      //console.log(dateRange)
+    }
+    console.log(dateRange);
+    return dateRange;
+    console.log(start, end);
+  };
   const populateEventItem = (title, description, startDate, endDate) => {
     eventsListArray.sort(
       (a, b) => new Date(a.startDate) - new Date(b.startDate)
@@ -64,6 +77,7 @@ const createEventManagerApp = function() {
     eventItemObject.description = description;
     eventItemObject.startDate = startDate;
     eventItemObject.endDate = endDate;
+    dateRangeToArray(startDate, endDate);
     eventsListArray = [...eventsListArray, eventItemObject];
     //eventsListArray.push(eventItemObject);
     // console.log(eventsListArray);
