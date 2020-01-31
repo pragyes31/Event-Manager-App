@@ -37,16 +37,27 @@ const createEventManagerApp = function() {
     let start = new Date(startDate);
     let end = new Date(endDate);
     let dateRange = [];
+
     while (start <= end) {
-      let currentDate = new Date(start)
-      let dateInFormat = `${currentDate.getDate()}-${currentDate.getMonth()+1}-${currentDate.getFullYear()}`
+      let currentDate = new Date(start);
+      let currentYear = currentDate.getFullYear();
+      let currentMonth =
+        currentDate.getMonth().length > 1
+          ? currentDate.getMonth() + 1
+          : `0${currentDate.getMonth() + 1}`;
+      let currentDay =
+        currentDate.getDate() > 9
+          ? currentDate.getDate()
+          : `0${currentDate.getDate()}`;
+
+      let dateInFormat = `${currentYear}-${currentMonth}-${currentDay}`;
       dateRange.push(dateInFormat);
       start.setDate(start.getDate() + 1);
       //console.log(dateRange)
     }
     console.log(dateRange);
     return dateRange;
-   // console.log(start, end);
+    // console.log(start, end);
   };
   const populateEventItem = (title, description, startDate, endDate) => {
     eventsListArray.sort(
