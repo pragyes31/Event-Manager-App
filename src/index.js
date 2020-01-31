@@ -38,13 +38,15 @@ const createEventManagerApp = function() {
     let end = new Date(endDate);
     let dateRange = [];
     while (start <= end) {
-      dateRange.push(new Date(start));
+      let currentDate = new Date(start)
+      let dateInFormat = `${currentDate.getDate()}-${currentDate.getMonth()+1}-${currentDate.getFullYear()}`
+      dateRange.push(dateInFormat);
       start.setDate(start.getDate() + 1);
       //console.log(dateRange)
     }
     console.log(dateRange);
     return dateRange;
-    console.log(start, end);
+   // console.log(start, end);
   };
   const populateEventItem = (title, description, startDate, endDate) => {
     eventsListArray.sort(
