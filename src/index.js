@@ -1,5 +1,4 @@
 import "./styles.css";
-
 const createEventManagerApp = function() {
   const eventsList = document.querySelector("#events-list");
   const eventDetailsForm = document.querySelector("#add-event");
@@ -12,7 +11,7 @@ const createEventManagerApp = function() {
   let eventsListArray = [];
   const loadLocalData = () => {
     if (localStorage.getItem("events-list")) {
-      localStorage.setItem("events-list", JSON.stringify(eventsListArray));
+      console.log("boom");
       let localData = JSON.parse(localStorage.getItem("events-list"));
       eventsListArray = [...localData];
       populateEventItem();
@@ -95,7 +94,7 @@ const createEventManagerApp = function() {
     });
     handleDateConflict();
     localStorage.setItem("events-list", JSON.stringify(eventsListArray));
-    console.log(localStorage.getItem("events-list"));
+    //    console.log(localStorage.getItem("events-list"));
     //console.log(eventsListArray);
   };
 
@@ -122,9 +121,14 @@ const createEventManagerApp = function() {
     errorMessage.innerHTML =
       "EVENT NOT ADDED! The end date should be greater than the start date";
   };
+  const handleWarning = () => {
+    if (startDateInput && eventsListArray) {
+    }
+  };
   const addEventToPage = () => {
     let startDateObj = new Date(startDateInput.value);
     let endDateObj = new Date(endDateInput.value);
+    // Below statement checks if startDate is less than EndDate. Only in that case, the event would be added
     endDateObj - startDateObj > 0
       ? addEventItemObject(
           titleInput.value,
@@ -134,6 +138,7 @@ const createEventManagerApp = function() {
         )
       : dateErrorMsg();
   };
+  endDateInput.addEventListener("change", handleWarning);
   eventDetailsForm.addEventListener(
     "submit",
     event => {
