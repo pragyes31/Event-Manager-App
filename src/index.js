@@ -71,10 +71,8 @@ const createEventManagerApp = function() {
           (eve2.dateRange.includes(eve1.startDate) ||
             eve2.dateRange.includes(eve1.endDate))
         ) {
-          let eve1Id = eve1.eventId;
-          let eve2Id = eve2.eventId;
-          let eve1Div = document.querySelector(`#${eve1Id}`);
-          let eve2Div = document.querySelector(`#${eve2Id}`);
+          let eve1Div = document.querySelector(`#${eve1.eventId}`);
+          let eve2Div = document.querySelector(`#${eve2.eventId}`);
           eve1Div.style.border = "1px solid red";
           eve2Div.style.border = "1px solid red";
         }
@@ -121,8 +119,15 @@ const createEventManagerApp = function() {
     errorMessage.innerHTML =
       "EVENT NOT ADDED! The end date should be greater than the start date";
   };
-  const handleWarning = () => {
-    if (startDateInput && eventsListArray) {
+  const handleConflictWarning = () => {
+    if (startDateInput && eventsListArray.length) {
+      let dateRangeArray = dateRangeToArray(startDateInput, endDateInput);
+      var isConflict = dateRangeArray.some(date => {
+        return eventsListArray.dateRange.includes(date);
+      });
+      if (isConflict)
+        errorMessage.innerHTML = `There is already an event listed within the start and end date you entered. 
+          The event can still be added. `;
     }
   };
   const addEventToPage = () => {
@@ -138,7 +143,7 @@ const createEventManagerApp = function() {
         )
       : dateErrorMsg();
   };
-  endDateInput.addEventListener("change", handleWarning);
+  endDateInput.addEventListener("change", handleConflictWarning);
   eventDetailsForm.addEventListener(
     "submit",
     event => {
