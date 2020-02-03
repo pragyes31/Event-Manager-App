@@ -119,23 +119,18 @@ const createEventManagerApp = function() {
       "EVENT NOT ADDED! The end date should be greater than the start date";
   };
   const handleConflictWarning = () => {
-    console.log(!!startDateInput.value, eventsListArray);
     if (!!startDateInput.value && !!eventsListArray.length) {
       let dateRangeArray = dateRangeToArray(
         startDateInput.value,
         endDateInput.value
       );
-      console.log(dateRangeArray);
       var isConflict = dateRangeArray.some(date => {
         return eventsListArray.some(eve => eve.dateRange.includes(date));
       });
-      console.log(isConflict);
-      if (isConflict) {
-        errorMessage.innerHTML = `There is already an event listed within the start and end date you entered. 
-        The event can still be added though.`;
-      } else {
-        errorMessage.innerHTML = "";
-      }
+      isConflict
+        ? (errorMessage.innerHTML = `There is already an event listed within the start and end date you entered. 
+      The event can still be added though.`)
+        : (errorMessage.innerHTML = "");
     }
   };
   const addEventToPage = () => {

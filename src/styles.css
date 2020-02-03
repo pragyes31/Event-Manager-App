@@ -100,6 +100,12 @@ label {
   margin-bottom: 5px;
 }
 
+#error-message {
+  font-size: 12px;
+  color: rgb(187, 255, 0);
+  margin: 0px 22px;
+}
+
 @media all and (max-width: 600px) {
   .app-content {
     flex-direction: column;
@@ -108,6 +114,6 @@ label {
     width: 100vw;
   }
   .add-event-form {
-    height: 60vh;
+    height: auto;
   }
 }
