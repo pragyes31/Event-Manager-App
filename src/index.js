@@ -47,7 +47,6 @@ const createEventManagerApp = function() {
     let dateRange = [];
     while (start <= end) {
       let currentDate = new Date(start);
-      let currentYear = currentDate.getFullYear();
       let currentMonth =
         currentDate.getMonth() > 9
           ? currentDate.getMonth() + 1
@@ -56,7 +55,7 @@ const createEventManagerApp = function() {
         currentDate.getDate() > 9
           ? currentDate.getDate()
           : `0${currentDate.getDate()}`;
-      let dateInFormat = `${currentYear}-${currentMonth}-${currentDay}`;
+      let dateInFormat = `${currentDate.getFullYear()}-${currentMonth}-${currentDay}`;
       dateRange.push(dateInFormat);
       start.setDate(start.getDate() + 1);
     }
@@ -91,8 +90,6 @@ const createEventManagerApp = function() {
     });
     handleDateConflict();
     localStorage.setItem("events-list", JSON.stringify(eventsListArray));
-    //    console.log(localStorage.getItem("events-list"));
-    //console.log(eventsListArray);
   };
 
   const resetEventForm = () => {
@@ -109,7 +106,7 @@ const createEventManagerApp = function() {
     eventItemObject.startDate = startDate;
     eventItemObject.endDate = endDate;
     eventItemObject.dateRange = dateRangeToArray(startDate, endDate);
-    dateRangeToArray(startDate, endDate);
+    //dateRangeToArray(startDate, endDate);
     eventsListArray = [...eventsListArray, eventItemObject];
     populateEventItem();
     resetEventForm();
@@ -159,3 +156,15 @@ const createEventManagerApp = function() {
 };
 
 const eventManagerApp = new createEventManagerApp();
+
+/* arr = [1,2,3,4] arr = [{}, {}]
+arr.sort(function(a,b) {
+return a.startDate - b.startDate
+})
+arr = [1,2,3,4]
+arr.forEach(function(obj) {
+
+})
+[10, 20,30, 40]
+
+*/
