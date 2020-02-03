@@ -11,7 +11,6 @@ const createEventManagerApp = function() {
   let eventsListArray = [];
   const loadLocalData = () => {
     if (localStorage.getItem("events-list")) {
-      console.log("boom");
       let localData = JSON.parse(localStorage.getItem("events-list"));
       eventsListArray = [...localData];
       populateEventItem();
@@ -120,14 +119,23 @@ const createEventManagerApp = function() {
       "EVENT NOT ADDED! The end date should be greater than the start date";
   };
   const handleConflictWarning = () => {
-    if (startDateInput && eventsListArray.length) {
-      let dateRangeArray = dateRangeToArray(startDateInput, endDateInput);
+    console.log(!!startDateInput.value, eventsListArray);
+    if (!!startDateInput.value && !!eventsListArray.length) {
+      let dateRangeArray = dateRangeToArray(
+        startDateInput.value,
+        endDateInput.value
+      );
+      console.log(dateRangeArray);
       var isConflict = dateRangeArray.some(date => {
-        return eventsListArray.dateRange.includes(date);
+        return eventsListArray.some(eve => eve.dateRange.includes(date));
       });
-      if (isConflict)
+      console.log(isConflict);
+      if (isConflict) {
         errorMessage.innerHTML = `There is already an event listed within the start and end date you entered. 
-          The event can still be added. `;
+        The event can still be added though.`;
+      } else {
+        errorMessage.innerHTML = "";
+      }
     }
   };
   const addEventToPage = () => {
