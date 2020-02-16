@@ -62,20 +62,18 @@ const createEventManagerApp = function() {
     return dateRange;
   };
   const handleDateConflict = () => {
-    eventsListArray.forEach(eve1 => {
-      eventsListArray.forEach(eve2 => {
-        if (
-          eve1.eventId !== eve2.eventId &&
-          (eve2.dateRange.includes(eve1.startDate) ||
-            eve2.dateRange.includes(eve1.endDate))
-        ) {
-          let eve1Div = document.querySelector(`#${eve1.eventId}`);
-          let eve2Div = document.querySelector(`#${eve2.eventId}`);
+    
+    eventsListArray.forEach((elem, index) => {
+      if(eventsListArray.length >1 && index<eventsListArray.length-1) {
+        let nextElem = eventsListArray[index+1] ;
+        if(elem.dateRange.includes(nextElem.startDate) || elem.dateRange.includes(nextElem.endDate)) {
+          let eve1Div = document.querySelector(`#${elem.eventId}`);
+          let eve2Div = document.querySelector(`#${nextElem.eventId}`);
           eve1Div.style.border = "1px solid red";
           eve2Div.style.border = "1px solid red";
         }
-      });
-    });
+      }
+    })
   };
   const populateEventItem = () => {
     eventsListArray.sort(
