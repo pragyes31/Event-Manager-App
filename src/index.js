@@ -62,18 +62,20 @@ const createEventManagerApp = function() {
     return dateRange;
   };
   const handleDateConflict = () => {
-    
     eventsListArray.forEach((elem, index) => {
-      if(eventsListArray.length >1 && index<eventsListArray.length-1) {
-        let nextElem = eventsListArray[index+1] ;
-        if(elem.dateRange.includes(nextElem.startDate) || elem.dateRange.includes(nextElem.endDate)) {
+      if (eventsListArray.length > 1 && index < eventsListArray.length - 1) {
+        let nextElem = eventsListArray[index + 1];
+        if (
+          elem.dateRange.includes(nextElem.startDate) ||
+          elem.dateRange.includes(nextElem.endDate)
+        ) {
           let eve1Div = document.querySelector(`#${elem.eventId}`);
           let eve2Div = document.querySelector(`#${nextElem.eventId}`);
           eve1Div.style.border = "1px solid red";
           eve2Div.style.border = "1px solid red";
         }
       }
-    })
+    });
   };
   const populateEventItem = () => {
     eventsListArray.sort(
@@ -109,10 +111,6 @@ const createEventManagerApp = function() {
     populateEventItem();
     resetEventForm();
   };
-  const dateErrorMsg = () => {
-    errorMessage.innerHTML =
-      "EVENT NOT ADDED! The end date should be greater than the start date";
-  };
   const handleConflictWarning = () => {
     if (!!startDateInput.value && !!eventsListArray.length) {
       let dateRangeArray = dateRangeToArray(
@@ -139,7 +137,8 @@ const createEventManagerApp = function() {
           startDateInput.value,
           endDateInput.value
         )
-      : dateErrorMsg();
+      : (errorMessage.innerHTML =
+          "EVENT NOT ADDED! The end date should be greater than the start date");
   };
   endDateInput.addEventListener("change", handleConflictWarning);
   eventDetailsForm.addEventListener(
